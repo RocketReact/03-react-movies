@@ -1,23 +1,65 @@
-import "./App.module.css";
+import css from "./App.module.css";
 import movieService from "../../services/movieService.ts";
-import { useEffect } from "react";
+import { useState } from "react";
 import SearchBar from "../SearchBar/SearchBar.tsx";
+import { toast, Toaster } from "react-hot-toast";
+import type { Movie } from "../../types/movie.ts";
+import MovieGrid from "../MovieGrid/MovieGrid.tsx";
+import Loader from "../Loader/Loader.tsx";
+import ErrorMessage from "../ErrorMessage/ErrorMessage.tsx";
 
-function App() {
-  function onHandlesubmit() {}
+export default function App() {
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
-  useEffect(() => {
-    async function f() {
-      await movieService("car");
+  const handleMovieSelect = (movie: Movie) => {
+    console.log("Selected movie:", movie);
+  };
+
+  const handleSearch = async (query: string): Promise<void> => {
+    setLoading(true);
+    try {
+      const results = await movieService(query);
+
+      if (results.length === 0) {
+        setIsError(true);
+        toast.error("No movies found for your request.\n");
+        setMovies([]);
+        return;
+      }
+      setIsError(false);
+      setMovies(results);
+    } catch (error) {
+      setIsError(true);
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "An unexpected error occurred. \n";
+      toast.error(errorMessage);
+      setMovies([]);
+    } finally {
+      setLoading(false);
     }
-    f();
-  }, []);
+  };
 
   return (
-    <>
-      <SearchBar onSubmit={onHandlesubmit} />
-    </>
+    <div className={css.app}>
+      <SearchBar onSearch={handleSearch} />
+      {loading && <Loader />}
+      {isError && <ErrorMessage />}
+      <MovieGrid movies={movies} onSelect={handleMovieSelect} />
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          duration: 3000,
+          style: {
+            background: "#fffdfd",
+            color: "#1e1d1d",
+            cursor: "pointer",
+          },
+        }}
+      />
+    </div>
   );
 }
-
-export default App;
