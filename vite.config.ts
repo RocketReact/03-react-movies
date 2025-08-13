@@ -8,7 +8,7 @@ export default defineConfig({
         process.env.NODE_ENV === 'production'
             ? process.env.VERCEL
                 ? '/'
-                : './' // ставим относительные пути, чтобы локально тоже работало
+                : '/03-react-movies/'
             : './',
     build: {
         sourcemap: true,
