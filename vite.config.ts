@@ -8,7 +8,7 @@ export default defineConfig({
         process.env.NODE_ENV === 'production'
             ? process.env.VERCEL
                 ? '/'
-                : '/my-react-practice/'
+                : './' // ставим относительные пути, чтобы локально тоже работало
             : './',
     build: {
         sourcemap: true,
