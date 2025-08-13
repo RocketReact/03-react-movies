@@ -35,6 +35,8 @@ jobs:
         run: npm ci
 
       - name: Build project
+        env:
+          VITE_TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
         run: npm run build
 
       - name: Setup Pages

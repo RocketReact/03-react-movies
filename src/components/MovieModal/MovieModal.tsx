@@ -5,13 +5,14 @@ import css from "./MovieModal.module.css";
 //   onClose: () => void;
 //   movie: Movie;
 // }
+
 // { movie, onClose }: MovieModalProps
 
-export default function MovieModal() {
-  // function handleClose() {
-  //   const listner = onClose();
-  // }
+// function handleClose() {
+//   const listner = onClose();
+// }
 
+export default function MovieModal() {
   return (
     <div className={css.backdrop} role="dialog" aria-modal="true">
       <div className={css.modal}>
