@@ -1,5 +1,5 @@
-import "./App.css";
-import movieService from "../services/movieService.ts";
+import "./App.module.css";
+import movieService from "../../services/movieService.ts";
 import { useEffect } from "react";
 
 function App() {
