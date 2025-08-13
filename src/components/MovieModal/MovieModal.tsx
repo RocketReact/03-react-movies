@@ -1,21 +1,22 @@
 import css from "./MovieModal.module.css";
-import type { Movie } from "../../types/movie.ts";
+// import type { Movie } from "../../types/movie.ts";
 
-interface MovieModalProps {
-  onClose: () => void;
-  movie: Movie;
-}
+// interface MovieModalProps {
+//   onClose: () => void;
+//   movie: Movie;
+// }
+// { movie, onClose }: MovieModalProps
 
-export default function MovieModal({ movie, onClose }: MovieModalProps) {
-  function handleClose() {
-    const listner = onClose();
-  }
+export default function MovieModal() {
+  // function handleClose() {
+  //   const listner = onClose();
+  // }
 
   return (
     <div className={css.backdrop} role="dialog" aria-modal="true">
       <div className={css.modal}>
         <button
-          onClick={handleClose}
+          // onClick={handleClose}
           className={css.closeButton}
           aria-label="Close modal"
         >
