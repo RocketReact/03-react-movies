@@ -7,16 +7,20 @@ import type { Movie } from "../../types/movie.ts";
 import MovieGrid from "../MovieGrid/MovieGrid.tsx";
 import Loader from "../Loader/Loader.tsx";
 import ErrorMessage from "../ErrorMessage/ErrorMessage.tsx";
+import MovieModal from "../MovieModal/MovieModal.tsx";
 
 export default function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [movie, setMovie] = useState<Movie | null>(null);
 
   const handleMovieSelect = (movie: Movie) => {
-    console.log("Selected movie:", movie);
+    setMovie(movie);
   };
-
+  const handleCloseModal = () => {
+    setMovie(null);
+  };
   const handleSearch = async (query: string): Promise<void> => {
     setLoading(true);
     try {
@@ -49,6 +53,7 @@ export default function App() {
       {loading && <Loader />}
       {isError && <ErrorMessage />}
       <MovieGrid movies={movies} onSelect={handleMovieSelect} />
+      {movie && <MovieModal movie={movie} onClose={handleCloseModal} />}
       <Toaster
         position="top-center"
         toastOptions={{
