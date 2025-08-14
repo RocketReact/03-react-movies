@@ -18,10 +18,12 @@ export default function MovieModal({ movie, onClose }: MovieModalProps) {
 
     if (movie) {
       document.addEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "hidden";
     }
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
     };
   }, [movie]);
 

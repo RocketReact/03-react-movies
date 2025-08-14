@@ -49,7 +49,7 @@ export default function App() {
 
   return (
     <div className={css.app}>
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar onSubmit={handleSearch} />
       {loading && <Loader />}
       {isError && <ErrorMessage />}
       <MovieGrid movies={movies} onSelect={handleMovieSelect} />
